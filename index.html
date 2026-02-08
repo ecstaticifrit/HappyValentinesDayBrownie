@@ -249,21 +249,64 @@ setInterval(()=>{
 },300);
 
 /* ================= GALLERY ================= */
-const photos=["./assets/photo4.jpg","./assets/photo5.jpg","./assets/photo3.jpg"];
-const gallery=document.getElementById("gallery");
-let index=0,slides=[];
-photos.forEach((src,i)=>{
- const img=document.createElement("img");
- img.src=src;img.className="media";
- img.onload=()=>{if(i===0){img.classList.add("active");gallery.style.aspectRatio=img.naturalWidth/img.naturalHeight}};
- gallery.appendChild(img);slides.push(img);
+
+// 👉 Just add more image URLs here in future
+const photos = [
+  "https://iili.io/fmDn9XS.md.jpg",
+  "https://iili.io/fmDAdwG.md.jpg",
+  "https://iili.io/fmDAFn4.md.jpg",
+  "https://iili.io/fmDAKMl.md.jpg",
+  "https://iili.io/fmDupat.md.jpg",
+  
+  "https://iili.io/fmDcAog.md.jpg",
+  "https://iili.io/fmDc5iJ.md.jpg",
+  "https://iili.io/fmDcIN1.md.jpg",
+  "https://iili.io/fmDcRVa.md.jpg",
+  "https://iili.io/fmDccSp.md.jpg",
+];
+
+const gallery = document.getElementById("gallery");
+let index = 0;
+const slides = [];
+
+// Create image elements
+photos.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "media";
+    img.loading = "eager"; // smoother transitions
+
+    img.onload = () => {
+        // First image setup
+        if (i === 0) {
+            img.classList.add("active");
+            gallery.style.aspectRatio =
+                img.naturalWidth / img.naturalHeight;
+        }
+    };
+
+    img.onerror = () => {
+        console.warn("Image failed to load:", src);
+    };
+
+    gallery.appendChild(img);
+    slides.push(img);
 });
-setInterval(()=>{
- slides[index].classList.remove("active");
- index=(index+1)%slides.length;
- slides[index].classList.add("active");
- gallery.style.aspectRatio=slides[index].naturalWidth/slides[index].naturalHeight;
-},5000);
+
+// Slideshow rotation
+setInterval(() => {
+    slides[index].classList.remove("active");
+
+    index = (index + 1) % slides.length;
+
+    slides[index].classList.add("active");
+
+    // Auto-adjust frame to image ratio
+    gallery.style.aspectRatio =
+        slides[index].naturalWidth / slides[index].naturalHeight;
+
+}, 5000);
+
 
 /* ================= BUTTON BURST ================= */
 function heartBurst(){
