@@ -223,8 +223,8 @@ const valentineDays={
 
 /* ================= APPLY DAY ================= */
 const today=new Date();
-// const key=`${today.getMonth()+1}-${today.getDate()}`;
-const key = "2-15"
+const key=`${today.getMonth()+1}-${today.getDate()}`;
+// const key = "2-15"
 const day=valentineDays[key]||valentineDays["2-14"];
 
 dayEmoji.textContent=day.emoji;
